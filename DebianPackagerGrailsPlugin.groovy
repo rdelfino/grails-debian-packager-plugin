@@ -12,10 +12,10 @@ class DebianPackagerGrailsPlugin {
 
     // TODO Fill in these fields
     def title = "Debian Packager Plugin" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
+    def author = "Reginaldo Delfino"
+    def authorEmail = "rdelfino@gmail.com"
     def description = '''\
-Brief summary/description of the plugin.
+Generates debian packages.
 '''
 
     // URL to the plugin's documentation
@@ -69,3 +69,4 @@ Brief summary/description of the plugin.
         // TODO Implement code that is executed when the application shuts down (optional)
     }
 }
+
