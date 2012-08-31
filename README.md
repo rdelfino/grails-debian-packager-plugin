@@ -3,13 +3,13 @@ Grails Debian Packager Plugin
 
 Quartz Debian Packager plugin allows generation of debian packages from a Grails application.
 
-
 Installation
 -------
 
 To install the latest stable version of the plugin run:
 
 	grails install-plugin debian-packager
+
 
 Configuration
 -------
@@ -82,7 +82,6 @@ keys:
 The following example includes a directory, a file and an archive in the generated package
 
 <pre>
-
 debian.data = [
 	[
 		src: "a",
@@ -101,7 +100,6 @@ debian.data = [
 		type: "archive"
 	]
 ]
-
 </pre>
 
 ### Control Files
@@ -132,9 +130,7 @@ control files:
 </dl>
 
 These files are actually Groovy SimpleTemplate templates (see: <a href="">http://groovy.codehaus.org/Groovy+Templates</a>)
-that are processed before the generation of the package.
-
-The following values are available to theses templates:
+that are processed before the generation of the package. The following values are available to theses templates:
 
 <dl>
 
