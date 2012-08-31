@@ -1,0 +1,10 @@
+#!/bin/sh
+
+#######################################################
+#
+# Add here the commands to be excuted after the package
+# has been removed
+#
+
+echo ${appName}-${appVersion} removed.
+

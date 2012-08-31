@@ -1,0 +1,16 @@
+####################################
+#
+# Debian package control file
+# 
+# Further information at: 
+# http://www.debian.org/doc/debian-policy/ch-controlfields.html
+#
+Package: ${appName}
+Version: ${appVersion}
+Section: services
+Priority: optional
+Architecture: all
+Maintainer: ${appName}
+Depends: tomcat7
+Description: ${appName} service
+Distribution: ${appName} service

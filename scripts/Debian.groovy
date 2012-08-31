@@ -7,103 +7,133 @@ includeTargets << grailsScript("_GrailsWar")
 
 target(deb:"Generate debian package") {
 
-    depends(war)
+	depends(war)
 
-    def targetDir = grailsSettings.projectWarFile.parent
+	def targetDir = grailsSettings.projectWarFile.parent
 
-    def version = metadata.getApplicationVersion()
+	def version = metadata.getApplicationVersion()
 
-    def controlDir = buildConfig.debian.control ?: "deb/control"
-    def dataDir = buildConfig.debian.data ?: "deb/data"
+	def controlDir = buildConfig.debian.control ?: "debian"
+	def dataElements = buildConfig.debian.data 
 
-    def targetControlDirPath = "${targetDir}/deb/control"
+	def targetControlDirPath = "${targetDir}/deb/control"
 
-    def packageName = buildConfig.debian.package ?: "${grailsAppName}_${version}"
-    def installHome = buildConfig.debian.install.home ?: "/opt"
-    def warDestination = buildConfig.debian.install.war.directory ?: "${installHome}/${grailsAppName}-${version}/webapps"
-    def warDestinationName = buildConfig.debian.install.war.name ?: grailsSettings.projectWarFile.name
-    def user = buildConfig.debian.install.user ?: grailsAppName
-    def group = buildConfig.debian.install.user ?: grailsAppName
+	def installHome = buildConfig.debian.install.home ?: "/opt"
+	def packageName = buildConfig.debian.name ?: "${grailsAppName}_${version}"
+	def warDestination = buildConfig.debian.install.target.directory ?: "${installHome}/${grailsAppName}-${version}/webapps"
+	def warDestinationName = buildConfig.debian.install.war.name ?: grailsSettings.projectWarFile.name
+	def user = buildConfig.debian.install.user ?: grailsAppName
+	def group = buildConfig.debian.install.user ?: grailsAppName
 
-    def targetControlDir = new File(targetControlDirPath)
+	def targetControlDir = new File(targetControlDirPath)
 
-    if (targetControlDir.exists()){
-        if (targetControlDir.isDirectory()) {
-            targetControlDir.deleteDir()
-        }
-        else{
-            targetControlDir.delete()
-        }
-    }
+	if (targetControlDir.exists()){
+		if (targetControlDir.isDirectory()) {
+			targetControlDir.deleteDir()
+		}
+		else{
+			targetControlDir.delete()
+		}
+	}
 
-    targetControlDir.mkdirs()
+	targetControlDir.mkdirs()
 
-    generate(
-        "${targetControlDirPath}/preinst",
-        "${controlDir}/preinst",
-        installHome, user, group, grailsAppName, version
-    )
+	generate(
+		"${targetControlDirPath}/preinst",
+		"${controlDir}/preinst",
+		installHome, user, group, grailsAppName, version
+	)
 
-    generate(
-        "${targetControlDirPath}/postinst",
-        "${controlDir}/postinst",
-        installHome, user, group, grailsAppName, version
-    )
+	generate(
+		"${targetControlDirPath}/postinst",
+		"${controlDir}/postinst",
+		installHome, user, group, grailsAppName, version
+	)
 
-    generate(
-        "${targetControlDirPath}/prerm",
-        "${controlDir}/prerm",
-        installHome, user, group, grailsAppName, version
-    )
+	generate(
+		"${targetControlDirPath}/prerm",
+		"${controlDir}/prerm",
+		installHome, user, group, grailsAppName, version
+	)
 
-    generate(
-        "${targetControlDirPath}/postrm",
-        "${controlDir}/postrm",
-        installHome, user, group, grailsAppName, version
-    )
+	generate(
+		"${targetControlDirPath}/postrm",
+		"${controlDir}/postrm",
+		installHome, user, group, grailsAppName, version
+	)
 
-    generate(
-        "${targetControlDirPath}/control",
-        "${controlDir}/control",
-        installHome, user, group, grailsAppName, version
-    )
+	generate(
+		"${targetControlDirPath}/control",
+		"${controlDir}/control",
+		installHome, user, group, grailsAppName, version
+	)
 
-    generate(
-        "${targetControlDirPath}/conffiles",
-        "${controlDir}/conffiles",
-        installHome, user, group, grailsAppName, version
-    )
+	generate(
+		"${targetControlDirPath}/conffiles",
+		"${controlDir}/conffiles",
+		installHome, user, group, grailsAppName, version
+	)
 
-    ant.taskdef ( name : 'deb' , classname : 'org.vafer.jdeb.ant.DebAntTask')
+	ant.taskdef ( name : 'deb' , classname : 'org.vafer.jdeb.ant.DebAntTask')
 
-    ant.deb(
-    	control:"${targetControlDirPath}",
-    	destfile:"${targetDir}/${packageName}.deb",
-    	verbose:true
-    ){
-    	data(
-    		src:"${dataDir}",
-    		type:"directory"
-    	){
-    		mapper(
-    			type:"perm",
-    			prefix:"${installHome}/${grailsAppName}-${version}"
-    		)
-    	}
+	ant.deb(
+		control:"${targetControlDirPath}",
+		destfile:"${targetDir}/${packageName}.deb",
+		verbose:true
+	){
+	
+		dataElements.each{dataElement->
+			
+			def src = dataElement.src
+			
+			File srcFile = new File(src)
+			
+			def target = dataElement.target ?: "${installHome}/${grailsAppName}-${version}"
+			def type = dataElement.type ?: (srcFile.isDirectory() ? "directory" : "file")
+			
+			def destinationName = srcFile.isDirectory() ? 
+				srcFile.name :
+				dataElement.name ?: srcFile.name 
+			
+			if ("file" == type) {
+				data(
+					src:"${src}",
+					dst: "${destinationName}",
+					type:"file"
+				){
+					mapper(
+						type:"perm",
+						prefix:"${target}"
+					)
+				}
 
-    	data(
-    		src:"${grailsSettings.projectWarFile.canonicalPath}",
-    		dst: "${warDestinationName}",
-    		type:"file"
-    	){
-    		mapper(
-    			type:"perm",
-    			prefix:"${warDestination}"
-    		)
-    	}
-    }
+			}
+			else {
+				data(
+						src:"${src}",
+						type:"${type}"
+						){
+					mapper(
+							type:"perm",
+							prefix:"${target}"
+							)
+				}
+			}
+			
+			data(
+				src:"${grailsSettings.projectWarFile.canonicalPath}",
+				dst: "${warDestinationName}",
+				type:"file"
+			){
+				mapper(
+					type:"perm",
+					prefix:"${warDestination}"
+				)
+			}
+		}
+	}
 
-    event("StatusFinal", ["Done creating Debian package ${packageName}.deb"])
+	event("StatusFinal", ["Done creating Debian package ${packageName}.deb"])
 }
 
 void generate(destination, templatePath, installHome, user, group, appName, version) {

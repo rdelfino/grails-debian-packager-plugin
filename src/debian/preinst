@@ -1,0 +1,33 @@
+#!/bin/sh
+
+#######################################################
+#
+# Add here the commands to be excuted before the package
+# has been installed
+#
+
+#Example: create user and group for the service
+#
+# creating ${group} group if he isn't already there
+#if ! getent group ${group} >/dev/null; then
+#        # Adding group: ${group}.
+#        addgroup ${group} >/dev/null
+#fi
+#
+# creating ${user} user if he isn't already there
+#if ! getent passwd ${user} >/dev/null; then
+#        # Adding user: ${user}.
+#        adduser \\
+#          --disabled-login \\
+#          --ingroup ${group} \\
+#          --no-create-home \\
+#          --home /nonexistent \\
+#          --gecos "${user}" \\
+#          --shell /bin/false \\
+#          ${user} >/dev/null
+#fi
+
+
+echo Installing ${appName}-${appVersion}
+
+
