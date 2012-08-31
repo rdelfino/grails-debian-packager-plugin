@@ -10,11 +10,8 @@ To install the latest stable version of the plugin run:
 
 	grails install-plugin debian-packager
 
-
-Configuration
+Build configuration
 -------
-
-### Build configuration
 
 The plugin reads the following grails-app/conf/BuildConfig.groovy
 configurations:
@@ -102,7 +99,8 @@ debian.data = [
 ]
 </pre>
 
-### Control Files
+Control Files
+-------
 
 When the plugin is installed it creates a directory named debian
 in the project. In this debian directory are placed the debian package
