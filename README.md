@@ -18,63 +18,64 @@ configurations:
 
 <dl>
 
-<dt>debian.name</dt>
-<dd>Name of debian package file. Defaults to ${appName}_${appVersion}</dd>
-
-<dt>debian.install.home</dt>
-<dd>Default instalation directory of package contents, defaults to /opt</dd>
-
-
-<dt>debian.install.war.target</dt>
-<dd>
-Directory where the war file generated with 'grails war' will be placed
-in the package. Defaults to ${debian.install.home}/${appName}
-</dd>
-
-<dt>debian.install.war.name</dt>
-<dd>
-Name of the war file in the target directory. 
-Defaults to current war file. Useful for renaming the 
-generated war in the debian package.
-</dd>
-
-<dt>debian.install.user</dt>
-<dd>
-User that may be created during the debian package installation. 
-Defaults to ${appName}. 
-</dd>
-
-<dt>debian.install.group</dt>
-<dd>
-Group that may be created during the debian package installation. 
-Defaults to ${appName}. 
-</dd>
-
-<dt>debian.install.data</dt>
-<dd>
-List of data items that will be included in the package.
-These items can be directories, files or tar.gz archives.
-Each item is described by a map with the following configuration 
-keys:
-	<dl>
-		<dt>type</dt>
-		<dd>Either of file, directory or archive.</dd>
-		
-		<dt>src</dt>
-		<dd>Path to the item to be included in the package. 
-		If the type is directory or archive, all the item's contents are copyed to the package.
-		</dd>
-		
-		<dt>target</dt>
-		<dd>Destination directory to the item in the package.</dd>
-		
-		<dt>name</dt>
-		<dd>Valid only for items with type == 'file'. 
-		Useful for renaming itens in the generated package. 
-		Defaults to the current file name.
-		</dd>
-	</dl>
-</dd>
+	<dt>debian.name</dt>
+	<dd>Name of debian package file. Defaults to ${appName}_${appVersion}</dd>
+	
+	<dt>debian.install.home</dt>
+	<dd>Default instalation directory of package contents, defaults to /opt</dd>
+	
+	
+	<dt>debian.install.war.target</dt>
+	<dd>
+	Directory where the war file generated with 'grails war' will be placed
+	in the package. Defaults to ${debian.install.home}/${appName}
+	</dd>
+	
+	<dt>debian.install.war.name</dt>
+	<dd>
+	Name of the war file in the target directory. 
+	Defaults to current war file. Useful for renaming the 
+	generated war in the debian package.
+	</dd>
+	
+	<dt>debian.install.user</dt>
+	<dd>
+	User that may be created during the debian package installation. 
+	Defaults to ${appName}. 
+	</dd>
+	
+	<dt>debian.install.group</dt>
+	<dd>
+	Group that may be created during the debian package installation. 
+	Defaults to ${appName}. 
+	</dd>
+	
+	<dt>debian.install.data</dt>
+	<dd>
+	List of data items that will be included in the package.
+	These items can be directories, files or tar.gz archives.
+	Each item is described by a map with the following configuration 
+	keys:
+		<dl>
+			<dt>type</dt>
+			<dd>Either of file, directory or archive.</dd>
+			
+			<dt>src</dt>
+			<dd>Path to the item to be included in the package. 
+			If the type is directory or archive, all the item's contents are copyed to the package.
+			</dd>
+			
+			<dt>target</dt>
+			<dd>Destination directory to the item in the package.</dd>
+			
+			<dt>name</dt>
+			<dd>Valid only for items with type == 'file'. 
+			Useful for renaming itens in the generated package. 
+			Defaults to the current file name.
+			</dd>
+		</dl>
+	</dd>
+</dl>
 
 The following example includes a directory, a file and an archive in the generated package
 
