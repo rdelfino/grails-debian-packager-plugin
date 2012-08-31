@@ -82,6 +82,17 @@ target(deb:"Generate debian package") {
 		verbose:true
 	){
 	
+		data(
+			src:"${grailsSettings.projectWarFile.canonicalPath}",
+			dst: "${warDestinationName}",
+			type:"file"
+		){
+			mapper(
+				type:"perm",
+				prefix:"${warDestination}"
+			)
+		}
+		
 		dataElements.each{dataElement->
 			
 			def src = dataElement.src
@@ -110,26 +121,16 @@ target(deb:"Generate debian package") {
 			}
 			else {
 				data(
-						src:"${src}",
-						type:"${type}"
-						){
+					src:"${src}",
+					type:"${type}"
+				){
 					mapper(
-							type:"perm",
-							prefix:"${target}"
-							)
+						type:"perm",
+						prefix:"${target}"
+					)
 				}
 			}
 			
-			data(
-				src:"${grailsSettings.projectWarFile.canonicalPath}",
-				dst: "${warDestinationName}",
-				type:"file"
-			){
-				mapper(
-					type:"perm",
-					prefix:"${warDestination}"
-				)
-			}
 		}
 	}
 
