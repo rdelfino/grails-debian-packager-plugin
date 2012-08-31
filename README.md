@@ -83,18 +83,18 @@ The following example includes a directory, a file and an archive in the generat
 debian.data = [
 	[
 		src: "a",
-		target: "/opt/teste-src",
+		target: "/opt/test-src",
 		type: "directory"
 	],
 	[
 		src: "b/application.properties",
-		target: "/opt/teste",
+		target: "/opt/test",
 		type: "file",
 		name: "x.properties"
 	],
 	[
 		src: "b/archive.tar.gz",
-		target: "/opt/teste/exploded",
+		target: "/opt/test/exploded",
 		type: "archive"
 	]
 ]
