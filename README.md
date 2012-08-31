@@ -1,7 +1,7 @@
 Grails Debian Packager Plugin
 =============
 
-Quartz Debian Packager plugin allows generation of debian packages from a Grails application.
+Debian Packager plugin allows generation of debian packages from a Grails application.
 
 Installation
 -------
