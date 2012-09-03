@@ -18,9 +18,9 @@ target(deb:"Generate debian package") {
 
 	def targetControlDirPath = "${targetDir}/deb/control"
 
-	def installHome = buildConfig.debian.install.home ?: "/opt"
+	def installHome = buildConfig.debian.install.home ?: "/opt/${grailsAppName}"
 	def packageName = buildConfig.debian.name ?: "${grailsAppName}_${version}"
-	def warDestination = buildConfig.debian.install.target.directory ?: "${installHome}/${grailsAppName}-${version}/webapps"
+	def warDestination = buildConfig.debian.install.target.directory ?: "${installHome}/webapps"
 	def warDestinationName = buildConfig.debian.install.war.name ?: grailsSettings.projectWarFile.name
 	def user = buildConfig.debian.install.user ?: grailsAppName
 	def group = buildConfig.debian.install.user ?: grailsAppName
@@ -99,7 +99,7 @@ target(deb:"Generate debian package") {
 			
 			File srcFile = new File(src)
 			
-			def target = dataElement.target ?: "${installHome}/${grailsAppName}-${version}"
+			def target = dataElement.target ?: "${installHome}"
 			def type = dataElement.type ?: (srcFile.isDirectory() ? "directory" : "file")
 			
 			def destinationName = srcFile.isDirectory() ? 
