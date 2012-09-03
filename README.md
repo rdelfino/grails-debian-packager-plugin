@@ -22,13 +22,12 @@ configurations:
 	<dd>Name of debian package file. Defaults to ${appName}_${appVersion}</dd>
 	
 	<dt>debian.install.home</dt>
-	<dd>Default instalation directory of package contents, defaults to /opt</dd>
-	
+	<dd>Default instalation directory of package contents, defaults to /opt/${appName}</dd>
 	
 	<dt>debian.install.war.target</dt>
 	<dd>
 	Directory where the war file generated with 'grails war' will be placed
-	in the package. Defaults to ${debian.install.home}/${appName}
+	in the package. Defaults to ${debian.install.home}/webapps
 	</dd>
 	
 	<dt>debian.install.war.name</dt>
@@ -62,15 +61,15 @@ configurations:
 			
 			<dt>src</dt>
 			<dd>Path to the item to be included in the package. 
-			If the type is directory or archive, all the item's contents are copyed to the package.
+			If the type is directory or archive, all the item's contents are copied to the package.
 			</dd>
 			
 			<dt>target</dt>
-			<dd>Destination directory to the item in the package.</dd>
+			<dd>Destination directory to the item in the package. Defaults to ${debian.install.home}</dd>
 			
 			<dt>name</dt>
 			<dd>Valid only for items with type == 'file'. 
-			Useful for renaming itens in the generated package. 
+			Useful for renaming items in the generated package. 
 			Defaults to the current file name.
 			</dd>
 		</dl>
@@ -104,13 +103,15 @@ Control Files
 -------
 
 When the plugin is installed it creates a directory named debian
-in the project. In this debian directory are placed the debian package
-control files:
+in the project. In this directory are placed the package control 
+files:
 
 <dl>
 
 <dt>control</dt>
-<dd>package descriptor, see: <a href="http://www.debian.org/doc/debian-policy/ch-controlfields.html">http://www.debian.org/doc/debian-policy/ch-controlfields.html</a> for its description.</dd>
+<dd>package descriptor, see: 
+<a href="http://www.debian.org/doc/debian-policy/ch-controlfields.html">http://www.debian.org/doc/debian-policy/ch-controlfields.html</a> 
+for its description.</dd>
 
 <dt>preinst</dt>
 <dd>commands to be executed before the package is installed</dd>
@@ -129,12 +130,12 @@ control files:
 </dl>
 
 These files are actually Groovy SimpleTemplate templates (see: <a href="">http://groovy.codehaus.org/Groovy+Templates</a>)
-that are processed before the generation of the package. The following values are available to theses templates:
+that are processed before the generation of the package. The following values configured on BuildConfig.groovy are available to these templates:
 
 <dl>
 
 <dt>installHome</dt>
-<dd>default instalation directory of package contents, defaults to /opt</dd>
+<dd>default instalation directory of package contents, defaults to /opt/${appName}</dd>
 
 <dt>appName</dt>
 <dd>name of grails application</dd>
