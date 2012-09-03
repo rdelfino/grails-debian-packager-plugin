@@ -134,7 +134,7 @@ that are processed before the generation of the package. The following values co
 
 <dl>
 
-<dt>installHome</dt>
+<dt>installHome (${debian.install.home}) </dt>
 <dd>default instalation directory of package contents, defaults to /opt/${appName}</dd>
 
 <dt>appName</dt>
@@ -143,10 +143,10 @@ that are processed before the generation of the package. The following values co
 <dt>appVersion</dt>
 <dd>application version</dd>
 
-<dt>user</dt>
+<dt>user (${debian.install.user})</dt>
 <dd>a user that may be created by this package, defaults to ${appName}</dd>
 
-<dt>group</dt>
+<dt>group (${debian.install.group})</dt>
 <dd>a group that may be created by this package, defaults to ${appName}</dd>
 
 </dl>
