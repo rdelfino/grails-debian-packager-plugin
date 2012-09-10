@@ -1,7 +1,44 @@
 Grails Debian Packager Plugin
 =============
 
-Debian Packager plugin allows generation of debian packages from a Grails application.
+Debian Packager plugin allows generation of debian packages from a Grails 
+application.
+
+This plugin makes it easier to deploy grails applications on Debian 
+based distros such as Ubuntu.
+
+All this plugin does is to generate a .deb package that contains the files 
+to be copied in the target host and a set of scripts that will be executed 
+before/after the package is installed and another set of scripts that will
+be run before/after the package is uninstalled.
+
+For example, using this plugin one can create a package that depends on the 
+installation of tomcat7 on the target host. Once installed this package can 
+place the war file in the /var/lib/tomcat7/webapps directory, place some 
+configuration files in /etc on the target host, and place some static html 
+documents in /var/www/htdocs.
+
+Via a preinst script, the package can ensure that a given group and user 
+exist in the target host before the package is installed. 
+
+Via a postinst script, the package can guarantee that some given paths exist 
+by creating the needed symbolic links. Also, if needed the postinst script 
+can start an arbitrary service after been installed.
+
+And so on . . . 
+
+Once the debian package is created, it's possible to make it available to an 
+<a href="http://wiki.debian.org/HowToSetupADebianRepository">apt-get repository</a> 
+allowing system administrators to install/upgrade a grails web application by 
+simply issuing a command like
+
+<pre>
+sudo apt-get install mycompany-mygrailsapp
+</pre>
+
+in the target host and allowing the use of <a href="http://www.opscode.com/chef/">chef</a> 
+or <a href="http://puppetlabs.com/">puppet</a> to quickly provision the application in 
+a brand new computer.
 
 Installation
 -------
