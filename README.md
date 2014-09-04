@@ -61,7 +61,7 @@ configurations:
 	<dt>debian.install.home</dt>
 	<dd>Default instalation directory of package contents, defaults to /opt/${appName}</dd>
 	
-	<dt>debian.install.war.target</dt>
+	<dt>debian.install.target.directory</dt>
 	<dd>
 	Directory where the war file generated with 'grails war' will be placed
 	in the package. Defaults to ${debian.install.home}/webapps
